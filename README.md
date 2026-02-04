@@ -110,8 +110,6 @@ VITE_USER_ID=user1
 VITE_USER_NAME=User 1
 ```
 
-See [ENV_SETUP.md](ENV_SETUP.md) for detailed setup instructions.
-
 ## 🛠️ Tech Stack
 
 ### Backend
