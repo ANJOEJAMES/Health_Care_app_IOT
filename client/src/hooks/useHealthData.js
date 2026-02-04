@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { API_URL, USER_ID } from '../constants/config';
 
-export const useHealthData = (selectedRange, setMessages) => {
+export const useHealthData = (selectedRange, setMessages, userId) => {
     useEffect(() => {
         const fetchData = () => {
             console.log(`Fetching data for range: ${selectedRange}`);
-            fetch(`${API_URL}/api/data/${USER_ID}?timeRange=${selectedRange}`)
+            fetch(`${API_URL}/api/data/${userId}?timeRange=${selectedRange}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(`Received ${data.length} records for ${selectedRange}`, data);

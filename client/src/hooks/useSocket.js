@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { SOCKET_URL, USER_ID } from '../constants/config';
 
-export const useSocket = () => {
+export const useSocket = (userId) => {
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const [latestData, setLatestData] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -22,7 +22,8 @@ export const useSocket = () => {
 
         socket.on('initial-data', (data) => {
             console.log('Initial data:', data);
-            const filteredData = data.filter(item => item.userId === USER_ID || !item.userId);
+            // Filter data for the specific user we are viewing
+            const filteredData = data.filter(item => item.userId === userId || (!item.userId && userId === 'user1'));
             setMessages(filteredData);
             if (filteredData.length > 0) {
                 setLatestData(filteredData[0]);
@@ -31,7 +32,8 @@ export const useSocket = () => {
 
         socket.on('mqtt-message', (data) => {
             console.log('Received:', data);
-            if (data.userId === USER_ID || !data.userId) {
+            // Only update state if message belongs to viewed user
+            if (data.userId === userId || (!data.userId && userId === 'user1')) {
                 setMessages((prev) => [data, ...prev].slice(0, 100));
                 setLatestData(data);
             }

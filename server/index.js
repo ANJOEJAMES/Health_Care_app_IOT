@@ -7,6 +7,8 @@ const connectDatabase = require('./config/database');
 const DataModel = require('./models/DataModel');
 const dataRoutes = require('./routes/dataRoutes');
 const debugRoutes = require('./routes/debugRoutes');
+const authRoutes = require('./routes/authRoutes');
+const seedUsers = require('./utils/seedUsers');
 const { setupMQTT } = require('./mqtt/mqttClient');
 
 const app = express();
@@ -21,10 +23,13 @@ const io = new Server(server, {
     }
 });
 
-// Connect to MongoDB
-connectDatabase();
+// Connect to MongoDB and Seed Users
+connectDatabase().then(() => {
+    seedUsers();
+});
 
 // Mount routes
+app.use('/api/auth', authRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/debug', debugRoutes);
 
