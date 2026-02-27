@@ -1,6 +1,6 @@
 // Configuration constants
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://192.168.1.3:5000';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://192.168.1.3:5000';
 export const USER_ID = import.meta.env.VITE_USER_ID || 'user1';
 export const USER_NAME = import.meta.env.VITE_USER_NAME || 'User 1';
 

@@ -9,9 +9,10 @@ import { useSocket } from '../hooks/useSocket';
 import { useHealthData } from '../hooks/useHealthData';
 import { formatChartData } from '../utils/formatters';
 import { METRICS, API_URL } from '../constants/config';
+import { QRCodeCanvas } from 'qrcode.react';
 import '../index.css';
 
-const Dashboard = ({ viewingUserId, userName }) => {
+const Dashboard = ({ viewingUserId, userName, onBack }) => {
     const [selectedRange, setSelectedRange] = useState('1hr');
     const [thresholds, setThresholds] = useState({
         temperature: { low: 36, high: 37.5 },
@@ -39,12 +40,12 @@ const Dashboard = ({ viewingUserId, userName }) => {
             background: 'linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%)',
             padding: '20px'
         }}>
-            <Header userName={userName} connectionStatus={connectionStatus} />
+            <Header userName={userName} connectionStatus={connectionStatus} onBack={onBack} />
 
-            {/* Metric Cards */}
+            {/* Top Grid: Metrics and QR Code */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 gap: '20px',
                 marginBottom: '32px'
             }}>
@@ -60,6 +61,36 @@ const Dashboard = ({ viewingUserId, userName }) => {
                         thresholds={thresholds}
                     />
                 ))}
+
+                {/* QR Code Card - Now on the right */}
+                <div style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                }}>
+                    <div style={{
+                        background: 'white',
+                        padding: '12px',
+                        borderRadius: '12px',
+                        marginBottom: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <QRCodeCanvas value={viewingUserId} size={120} />
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                        <h3 style={{ margin: 0, color: 'var(--success)', fontSize: '1.1em' }}>Patient ID Code</h3>
+                        <p style={{ margin: '4px 0 0', color: 'var(--text-secondary)', fontSize: '0.9em' }}>Scan for mobile access</p>
+                    </div>
+                </div>
             </div>
 
             <TimeRangeSelector
@@ -75,25 +106,25 @@ const Dashboard = ({ viewingUserId, userName }) => {
                 marginBottom: '32px'
             }}>
                 <ChartCard
-                    title="🌡️ Temperature Trend"
+                    title="🌡️ Temperature"
                     data={chartData}
                     dataKey="temperature"
                     color="var(--accent-temperature)"
                 />
                 <ChartCard
-                    title="❤️ Heart Rate Trend"
+                    title="❤️ Heart Rate"
                     data={chartData}
                     dataKey="heartRate"
                     color="var(--accent-heart)"
                 />
                 <ChartCard
-                    title="💧 SpO2 Trend"
+                    title="💧 SpO2"
                     data={chartData}
                     dataKey="spo2"
                     color="var(--accent-spo2)"
                 />
                 <ChartCard
-                    title="🩺 Blood Pressure Trend"
+                    title="🩺 Blood Pressure"
                     data={chartData}
                     dataKey="bloodPressure"
                     color="var(--accent-bp)"

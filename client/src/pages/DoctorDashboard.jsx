@@ -11,26 +11,11 @@ const DoctorDashboard = () => {
 
     if (selectedUser) {
         return (
-            <div>
-                <button
-                    onClick={() => setSelectedUser(null)}
-                    style={{
-                        position: 'fixed',
-                        top: '20px',
-                        left: '20px',
-                        zIndex: 1000,
-                        padding: '10px 20px',
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border-color)',
-                        color: 'white',
-                        borderRadius: '8px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    ← Back to List
-                </button>
-                <Dashboard viewingUserId={selectedUser.id} userName={selectedUser.name} />
-            </div>
+            <Dashboard
+                viewingUserId={selectedUser.id}
+                userName={selectedUser.name}
+                onBack={() => setSelectedUser(null)}
+            />
         );
     }
 
@@ -43,7 +28,7 @@ const DoctorDashboard = () => {
             <Header userName="Dr. Smith" connectionStatus="Connected" />
 
             <div style={{ maxWidth: '800px', margin: '0 auto', paddingTop: '40px' }}>
-                <h2 style={{ color: 'white', marginBottom: '30px' }}>Select Patient to Monitor</h2>
+                <h2 style={{ color: 'white', marginBottom: '30px', textAlign: 'center' }}>Select Patient to Monitor</h2>
 
                 <div style={{ display: 'grid', gap: '20px' }}>
                     {users.map(user => (
