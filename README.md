@@ -48,6 +48,90 @@ ESP32 → HiveMQ Cloud → Node.js (Auth/Data) → MongoDB Atlas
             ↓                                               ↓
     React Web Dashboard                          React Native Mobile App
   (Patient/Doctor Views)                  (Patient/Doctor/Bystander Views)
+  
+```
+
+---
+
+## 📂 File Structure
+
+```text
+Project_EC/
+├── README.md
+├── .gitignore
+├── package-lock.json
+│
+├── server/
+│   ├── index.js
+│   ├── package.json
+│   ├── .env / .env.example
+│   ├── config/
+│   │   ├── constants.js
+│   │   └── database.js
+│   ├── models/
+│   │   ├── DataModel.js
+│   │   ├── DoctorModel.js
+│   │   └── UserModel.js
+│   ├── mqtt/
+│   │   └── mqttClient.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── dataRoutes.js
+│   │   └── debugRoutes.js
+│   └── utils/
+│       └── seedUsers.js
+│
+├── client/
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── package.json
+│   ├── .env / .env.example
+│   ├── vercel.json
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx
+│       ├── index.css
+│       ├── components/
+│       │   ├── ChartCard.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── DataTable.jsx
+│       │   ├── Header.jsx
+│       │   ├── MetricCard.jsx
+│       │   ├── TimeRangeSelector.jsx
+│       │   └── WarningBanner.jsx
+│       ├── constants/
+│       │   └── config.js
+│       ├── context/
+│       │   └── AuthContext.jsx
+│       ├── hooks/
+│       │   ├── useHealthData.js
+│       │   └── useSocket.js
+│       ├── pages/
+│       │   ├── DoctorDashboard.jsx
+│       │   └── LoginPage.jsx
+│       └── utils/
+│           └── formatters.js
+│
+└── mobile/
+    ├── App.js
+    ├── index.js
+    ├── package.json
+    ├── app.json / eas.json
+    ├── assets/
+    │   ├── adaptive-icon.png
+    │   ├── favicon.png
+    │   ├── icon.png
+    │   └── splash-icon.png
+    └── src/
+        ├── screens/
+        │   ├── BystanderDashboard.js
+        │   ├── DoctorDashboard.js
+        │   ├── LoginScreen.js
+        │   ├── ScannerScreen.js
+        │   └── UserDashboard.js
+        └── services/
+            ├── AuthService.js
+            └── DataService.js
 ```
 
 ---
